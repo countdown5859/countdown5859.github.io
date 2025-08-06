@@ -1,0 +1,75 @@
+<title>special countdown!!!</title>
+
+
+<p style="font-family:arial;font-size:20px;">
+Time's Ticking!</p>
+<div id="countdown"></div>
+
+<style>
+
+body{
+
+background-color:#7e7e;
+
+}
+
+  #countdown {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    background-color:#77e;
+    padding: 1em 2em;
+    border-radius: 1em;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 200px;
+    margin: 5vh auto;
+    animation: pulse 2s infinite;
+    word-spacing: 0.3em;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+    50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 255, 255, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+  }
+
+  @media (max-width: 500px) {
+    #countdown {
+      padding: 0.8em 1.2em;
+      font-size: clamp(1.5rem, 6vw, 3rem);
+    }
+  }
+</style>
+
+<script>
+  function updateCountdown() {
+    const targetDate = new Date();
+    targetDate.setMonth(7); // August
+    targetDate.setDate(15);
+    targetDate.setHours(18, 0, 0, 0); // 6:00 PM
+
+    const now = new Date();
+    const diff = targetDate - now;
+
+    const countdownEl = document.getElementById("countdown");
+
+    if (diff <= 0) {
+      countdownEl.innerHTML = "🎉 It's time!";
+      clearInterval(timer);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.innerHTML =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  const timer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
